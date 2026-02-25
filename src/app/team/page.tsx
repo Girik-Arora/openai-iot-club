@@ -2,39 +2,61 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const members = [
-  {
-    name: "Girik Arora",
-    role: "Chairperson",
-    image: "/team/girik.jpg",
-  },
-  {
-    name: "Parth Desai",
-    role: "Vice Chairperson",
-    image: "/team/parth.jpg",
-  },
-  {
-    name: "Shreya Shrivastav",
-    role: "Secretary",
-    image: "/team/shreya.jpg",
-  },
-  {
-    name: "Krishna Bittharia",
-    role: "Student Advisor",
-    image: "/team/krishna.jpg",
-  },
+  { name: "Girik Arora", role: "Chairperson", image: "/team/girik.jpg" },
+  { name: "Parth Desai", role: "Vice Chairperson", image: "/team/parth.jpg" },
+  { name: "Shreya Shrivastav", role: "Secretary", image: "/team/shreya.jpg" },
+  { name: "Krishna Bittharia", role: "Student Advisor", image: "/team/krishna.jpg" },
 ];
 
 export default function TeamPage() {
-  const [hovered, setHovered] = useState<number | null>(null);
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      setMouse({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
 
   return (
-    <div className="min-h-screen text-white bg-black overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white overflow-hidden relative">
 
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative h-[80vh] flex items-center justify-center">
+      {/* ================= PARTICLE BACKGROUND ================= */}
+      <div className="absolute inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-indigo-400 rounded-full"
+            animate={{
+              y: ["0vh", "100vh"],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 8 + i,
+              repeat: Infinity,
+              delay: i * 0.2,
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ================= CURSOR SPOTLIGHT ================= */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background: `radial-gradient(400px at ${mouse.x}px ${mouse.y}px, rgba(99,102,241,0.15), transparent 70%)`,
+        }}
+      />
+
+      {/* ================= HERO ================= */}
+      <section className="relative h-[80vh] flex items-center justify-center z-10">
         <Image
           src="/team/fullteam.JPG"
           alt="Full Team"
@@ -49,29 +71,27 @@ export default function TeamPage() {
           initial={{ opacity: 0, y: 60 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="relative text-5xl md:text-7xl font-bold text-center tracking-tight"
+          className="relative text-5xl md:text-7xl font-bold text-center"
         >
           Meet The OpenAI Club Team
         </motion.h1>
       </section>
 
       {/* ================= TEAM GRID ================= */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
+      <section className="max-w-6xl mx-auto px-6 py-24 relative z-10">
 
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-3 gap-14">
 
           {members.map((m, i) => (
             <motion.div
               key={i}
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}
               whileHover={{
-                rotateX: 6,
-                rotateY: -6,
-                scale: 1.05,
+                rotateX: 8,
+                rotateY: -8,
+                scale: 1.07,
               }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md border border-white/10"
+              transition={{ type: "spring", stiffness: 180 }}
+              className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-lg border border-white/10"
             >
               {/* IMAGE */}
               <div className="relative h-105 w-full">
@@ -83,23 +103,31 @@ export default function TeamPage() {
                 />
               </div>
 
-              {/* NAME PANEL */}
+              {/* TEXT PANEL */}
               <div className="p-6 bg-linear-to-r from-black to-zinc-900">
-                <h2 className="text-2xl font-semibold">{m.name}</h2>
-                <p className="text-gray-400">{m.role}</p>
+                <motion.h2
+                  whileHover={{ x: 6 }}
+                  className="text-2xl font-semibold"
+                >
+                  {m.name}
+                </motion.h2>
+
+                <motion.p
+                  animate={{
+                    opacity: [0.5, 1, 0.5],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                  }}
+                  className="text-indigo-300"
+                >
+                  {m.role}
+                </motion.p>
               </div>
 
-              {/* AI GLOW */}
-              {hovered === i && (
-                <motion.div
-                  layoutId="glow"
-                  className="absolute inset-0 rounded-2xl pointer-events-none"
-                  style={{
-                    boxShadow:
-                      "0 0 60px rgba(99,102,241,0.4)",
-                  }}
-                />
-              )}
+              {/* GLOW BORDER */}
+              <div className="absolute inset-0 rounded-2xl pointer-events-none shadow-[0_0_60px_rgba(99,102,241,0.15)]" />
             </motion.div>
           ))}
 
