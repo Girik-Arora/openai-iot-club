@@ -67,7 +67,7 @@ export default function About() {
         {/* Mission AgentSpace */}
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <Image
-            src="/events/agentspace.jpg"
+            src="/events/agentspace.png"
             width={600}
             height={400}
             alt="Mission AgentSpace"
@@ -96,7 +96,7 @@ export default function About() {
           </div>
 
           <Image
-            src="/events/aiot.jpg"
+            src="/events/aiot.png"
             width={600}
             height={400}
             alt="AIoT Workshop"
@@ -107,7 +107,7 @@ export default function About() {
         {/* Hackathon */}
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <Image
-            src="/events/hackathon.jpg"
+            src="/events/hackathon.png"
             width={600}
             height={400}
             alt="Hackathon"
