@@ -51,7 +51,7 @@ export default function TeamPage() {
       <div className="max-w-6xl mx-auto mt-28">
         <div className="relative w-full aspect-16/10 rounded-3xl overflow-hidden border border-white/10">
           <Image
-            src="/team/fullteam.jpg"
+            src="/team/fullteam.JPG"
             alt="Full Team"
             fill
             className="object-contain"
