@@ -56,7 +56,7 @@ export default function TeamPage() {
       />
 
       {/* ================= HERO ================= */}
-      <section className="relative h-[80vh] flex items-center justify-center z-10 pt-28">
+      <section className="relative h-[80vh] flex items-center justify-center z-10 pt-40">
         <Image
           src="/team/fullteam.JPG"
           alt="Full Team"
@@ -80,58 +80,46 @@ export default function TeamPage() {
       {/* ================= TEAM GRID ================= */}
       <section className="max-w-6xl mx-auto px-6 py-24 relative z-10">
 
-        <div className="grid md:grid-cols-3 gap-14">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-14 justify-items-center">
 
-          {members.map((m, i) => (
-            <motion.div
-              key={i}
-              whileHover={{
-                rotateX: 8,
-                rotateY: -8,
-                scale: 1.07,
-              }}
-              transition={{ type: "spring", stiffness: 180 }}
-              className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-lg border border-white/10"
-            >
-              {/* IMAGE */}
-              <div className="relative h-105 w-full">
-                <Image
-                  src={m.image}
-                  alt={m.name}
-                  fill
-                  className="object-cover object-top"
-                />
-              </div>
+  {members.map((m, i) => {
+    // CENTER the 4th member
+    const centerFourth =
+      i === 3 ? "md:col-start-2 md:row-start-2" : "";
 
-              {/* TEXT PANEL */}
-              <div className="p-6 bg-linear-to-r from-black to-zinc-900">
-                <motion.h2
-                  whileHover={{ x: 6 }}
-                  className="text-2xl font-semibold"
-                >
-                  {m.name}
-                </motion.h2>
-
-                <motion.p
-                  animate={{
-                    opacity: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                  }}
-                  className="text-indigo-300"
-                >
-                  {m.role}
-                </motion.p>
-              </div>
-
-              {/* GLOW BORDER */}
-              <div className="absolute inset-0 rounded-2xl pointer-events-none shadow-[0_0_60px_rgba(99,102,241,0.15)]" />
-            </motion.div>
-          ))}
-
+    return (
+      <motion.div
+        key={i}
+        whileHover={{
+          rotateX: 8,
+          rotateY: -8,
+          scale: 1.07,
+        }}
+        transition={{ type: "spring", stiffness: 180 }}
+        className={`relative w-full max-w-sm rounded-2xl overflow-hidden bg-white/5 backdrop-blur-lg border border-white/10 ${centerFourth}`}
+      >
+        {/* IMAGE */}
+        <div className="relative h-105 w-full">
+          <Image
+            src={m.image}
+            alt={m.name}
+            fill
+            className="object-cover object-top"
+          />
         </div>
+
+        {/* TEXT PANEL */}
+        <div className="p-6 bg-linear-to-r from-black to-zinc-900">
+          <h2 className="text-2xl font-semibold">{m.name}</h2>
+          <p className="text-indigo-300">{m.role}</p>
+        </div>
+
+        {/* GLOW BORDER */}
+        <div className="absolute inset-0 rounded-2xl pointer-events-none shadow-[0_0_60px_rgba(99,102,241,0.15)]" />
+      </motion.div>
+    );
+  })}
+</div>
       </section>
     </div>
   );
