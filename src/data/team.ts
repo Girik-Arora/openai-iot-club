@@ -23,4 +23,4 @@ export const coreTeam = [
   // Add more here later
 ];
 
-export const teamPhoto = "/team/full-team.jpg";
+export const teamPhoto = "/team/fullteam.jpg";

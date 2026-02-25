@@ -23,32 +23,41 @@ export default function Team() {
         </h1>
 
         {/* ⚡ GRAND GRID — SAME CARD FOR EVERYONE */}
-        <div className="grid md:grid-cols-3 gap-12 mb-28">
-          {allMembers.map((member: any, i) => (
-            <div
-              key={i}
-              className="group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:scale-105 transition duration-300"
-            >
-              {/* Hover Glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-linear-to-br from-purple-500/10 to-blue-500/10" />
+        <div className="grid md:grid-cols-3 gap-12 mb-28 place-items-center">
+  {allMembers.map((member: any, i) => (
+    <div
+      key={i}
+      className={`
+        group relative backdrop-blur-xl bg-white/5 
+        border border-white/10 rounded-3xl overflow-hidden 
+        hover:scale-105 transition duration-300 w-full max-w-sm
 
-              <img
-                src={member.image}
-                className="w-full h-72 object-cover"
-              />
+        ${i === 3 ? "md:col-start-2" : ""}
+      `}
+    >
+      {/* Glow */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-linear-to-br from-purple-500/10 to-blue-500/10" />
 
-              <div className="p-6">
-                <h3 className="text-2xl font-bold">
-                  {member.name}
-                </h3>
+      {/* IMAGE FIXED */}
+      <div className="w-full h-80 bg-black flex items-center justify-center">
+        <img
+          src={member.image}
+          className="max-h-full object-contain"
+        />
+      </div>
 
-                <p className="text-gray-400 mt-1">
-                  {member.role}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="p-6 text-center">
+        <h3 className="text-2xl font-bold">
+          {member.name}
+        </h3>
+
+        <p className="text-gray-400 mt-1">
+          {member.role}
+        </p>
+      </div>
+    </div>
+  ))}
+</div>
 
         {/* 📸 FULL TEAM GRAND PHOTO */}
         <div className="relative rounded-3xl overflow-hidden border border-white/10 backdrop-blur-xl bg-white/5 p-10">
