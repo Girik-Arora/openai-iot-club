@@ -1,6 +1,10 @@
-import Image from "next/image";
+"use client";
 
-const team = [
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { useState } from "react";
+
+const members = [
   {
     name: "Girik Arora",
     role: "Chairperson",
@@ -24,69 +28,83 @@ const team = [
 ];
 
 export default function TeamPage() {
+  const [hovered, setHovered] = useState<number | null>(null);
+
   return (
-    <div className="min-h-screen px-6 py-20">
+    <div className="min-h-screen text-white bg-black overflow-x-hidden">
 
-      {/* TITLE */}
-      <h1 className="text-6xl font-bold text-center mb-16">
-        Meet The OpenAI Club Team
-      </h1>
-
-      {/* TEAM GRID */}
-      <div className="max-w-6xl mx-auto grid grid-cols-3 gap-12">
-
-        {/* FIRST ROW (3 MEMBERS) */}
-        {team.slice(0,3).map((member, i) => (
-          <MemberCard key={i} member={member} />
-        ))}
-
-        {/* SECOND ROW CENTERED (4TH MEMBER) */}
-        <div className="col-span-3 flex justify-center">
-          <MemberCard member={team[3]} />
-        </div>
-
-      </div>
-
-      {/* FULL TEAM PHOTO */}
-      <div className="max-w-6xl mx-auto mt-28">
-        <div className="relative w-full aspect-16/10 rounded-3xl overflow-hidden border border-white/10">
-          <Image
-            src="/team/fullteam.JPG"
-            alt="Full Team"
-            fill
-            className="object-contain"
-          />
-        </div>
-      </div>
-
-    </div>
-  );
-}
-
-/* ======================
-   MEMBER CARD COMPONENT
-====================== */
-
-function MemberCard({ member }: any) {
-  return (
-    <div className="group relative w-85">
-
-      {/* IMAGE */}
-      <div className="relative w-full aspect-3/4 rounded-3xl overflow-hidden">
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative h-[80vh] flex items-center justify-center">
         <Image
-          src={member.image}
-          alt={member.name}
+          src="/team/fullteam.JPG"
+          alt="Full Team"
           fill
-          className="object-contain object-top transition-transform duration-500 group-hover:scale-105"
+          priority
+          className="object-cover opacity-40"
         />
-      </div>
 
-      {/* NAME AREA */}
-      <div className="mt-4 text-center">
-        <h2 className="text-2xl font-semibold">{member.name}</h2>
-        <p className="text-white/60">{member.role}</p>
-      </div>
+        <div className="absolute inset-0 bg-linear-to-b from-black/60 to-black" />
 
+        <motion.h1
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="relative text-5xl md:text-7xl font-bold text-center tracking-tight"
+        >
+          Meet The OpenAI Club Team
+        </motion.h1>
+      </section>
+
+      {/* ================= TEAM GRID ================= */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+
+        <div className="grid md:grid-cols-3 gap-12">
+
+          {members.map((m, i) => (
+            <motion.div
+              key={i}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+              whileHover={{
+                rotateX: 6,
+                rotateY: -6,
+                scale: 1.05,
+              }}
+              transition={{ type: "spring", stiffness: 200 }}
+              className="relative rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md border border-white/10"
+            >
+              {/* IMAGE */}
+              <div className="relative h-105 w-full">
+                <Image
+                  src={m.image}
+                  alt={m.name}
+                  fill
+                  className="object-cover object-top"
+                />
+              </div>
+
+              {/* NAME PANEL */}
+              <div className="p-6 bg-linear-to-r from-black to-zinc-900">
+                <h2 className="text-2xl font-semibold">{m.name}</h2>
+                <p className="text-gray-400">{m.role}</p>
+              </div>
+
+              {/* AI GLOW */}
+              {hovered === i && (
+                <motion.div
+                  layoutId="glow"
+                  className="absolute inset-0 rounded-2xl pointer-events-none"
+                  style={{
+                    boxShadow:
+                      "0 0 60px rgba(99,102,241,0.4)",
+                  }}
+                />
+              )}
+            </motion.div>
+          ))}
+
+        </div>
+      </section>
     </div>
   );
 }
