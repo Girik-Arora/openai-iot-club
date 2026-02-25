@@ -31,7 +31,9 @@ export default function RootLayout({
          <AuthProvider>
         <MouseGlow>
           <Navbar />
+          <main className="pt-24">
           {children}
+          </main>
         </MouseGlow>
         </AuthProvider>
       </body>
