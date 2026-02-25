@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Admin() {
   const router = useRouter();
 
-  const ADMIN_EMAIL = "girikarora9@gmail.com"; // ⭐ change this to your Google email
+  const ADMIN_EMAIL = "aroragirik9@gmail.com"; // ⭐ change this to your Google email
 
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
