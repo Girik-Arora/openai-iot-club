@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import LoginButton from "./LoginButton";
+
+import UserMenu from "./UserMenu";
 
 export default function Navbar() {
   return (
@@ -10,7 +11,7 @@ export default function Navbar() {
       <Link href="/events">Events</Link>
       <Link href="/projects">Projects</Link>
       <Link href="/team">Team</Link>
-      <LoginButton />
+      <UserMenu />
       <Link href="/" className="flex items-center gap-3">
         <Image src="/logo.png" width={40} height={40} alt="logo" />
         <span className="font-semibold">Open AI Club</span>
