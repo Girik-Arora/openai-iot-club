@@ -56,7 +56,7 @@ export default function TeamPage() {
       />
 
       {/* ================= HERO ================= */}
-      <section className="relative h-[80vh] flex items-center justify-center z-10 pt-40">
+      <section className="relative h-[80vh] flex items-center justify-center z-10">
         <Image
           src="/team/fullteam.JPG"
           alt="Full Team"
