@@ -121,38 +121,45 @@ export default function Projects() {
   };
 
   return (
-    <div className="min-h-screen text-white flex flex-col items-center justify-center px-6">
+  <div className="text-white px-6 py-24">
 
+    {/* HEADER */}
+    <div className="text-center mb-12">
       <h1 className="text-5xl font-bold mb-4">
         🚧 Projects Updating Soon
       </h1>
 
-      <p className="text-gray-400 mb-8 text-center max-w-xl">
-        Try surviving our Neural Dodge Elite Mode.
-      </p>
-
-      <div className="relative border border-white/10 rounded-2xl overflow-hidden">
-        <canvas ref={canvasRef} className="bg-black/50 backdrop-blur-xl" />
-
-        {!running && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 backdrop-blur-xl">
-            <h2 className="text-3xl mb-4 text-red-400">
-              Game Over
-            </h2>
-
-            <button
-              onClick={restartGame}
-              className="px-6 py-3 border rounded-xl hover:bg-white hover:text-black transition"
-            >
-              Restart Mission
-            </button>
-          </div>
-        )}
-      </div>
-
-      <p className="mt-6 text-lg">
-        Score: <span className="font-bold">{score}</span>
+      <p className="text-gray-400 max-w-xl mx-auto">
+        While we build insane AIoT projects, try surviving our Neural Dodge
+        Elite Mode.
       </p>
     </div>
-  );
+
+    {/* GAME CONTAINER */}
+    <div className="max-w-6xl mx-auto border border-white/10 rounded-2xl overflow-hidden relative">
+      <canvas ref={canvasRef} className="w-full bg-black/50" />
+
+      {!running && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 backdrop-blur-xl">
+          <h2 className="text-3xl mb-4 text-red-400">
+            Game Over
+          </h2>
+
+          <button
+            onClick={restartGame}
+            className="px-6 py-3 border rounded-xl hover:bg-white hover:text-black transition"
+          >
+            Restart Mission
+          </button>
+        </div>
+      )}
+    </div>
+
+    {/* SCORE */}
+    <p className="mt-10 text-center text-lg">
+      Score: <span className="font-bold">{score}</span>
+    </p>
+
+  </div>
+);
 }
