@@ -3,9 +3,6 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -34,8 +31,7 @@ body {
   animation: marquee 20s linear infinite;
 }
 
-body::before {
-  .cursor-glow {
+.cursor-glow {
   position: fixed;
   width: 320px;
   height: 320px;
@@ -45,5 +41,4 @@ body::before {
   transform: translate(-50%, -50%);
   filter: blur(40px);
   z-index: 0;
-}
 }
